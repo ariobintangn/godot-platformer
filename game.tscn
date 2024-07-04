@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://7n504m0lop5b"]
+
+[ext_resource type="PackedScene" uid="uid://b3vl1c17m6sia" path="res://level.tscn" id="1_68les"]
+[ext_resource type="PackedScene" uid="uid://cf4u3kg3w8es5" path="res://ui.tscn" id="2_v41hw"]
+
+[node name="Node" type="Node"]
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.274759, 0.653084, 0.917727, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="level" parent="." instance=ExtResource("1_68les")]
+position = Vector2(-3, 14)
+
+[node name="UI" parent="." instance=ExtResource("2_v41hw")]

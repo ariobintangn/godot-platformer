@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqlce1mud6shn"]
+
+[ext_resource type="Texture2D" uid="uid://bn0ownf715rxd" path="res://graphic/cat.png" id="1_j1tpx"]
+[ext_resource type="Script" path="res://cat.gd" id="1_nblla"]
+[ext_resource type="Shader" path="res://flicker.gdshader" id="2_0lh2e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ed7d7"]
+shader = ExtResource("2_0lh2e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0w0b4"]
+radius = 17.0222
+height = 35.9842
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thjbg"]
+size = Vector2(52, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ataj"]
+size = Vector2(9, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf5s5"]
+size = Vector2(9.5, 9)
+
+[node name="cat" type="Area2D"]
+collision_layer = 4
+collision_mask = 19
+script = ExtResource("1_nblla")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ed7d7")
+position = Vector2(6, -7)
+scale = Vector2(0.111806, 0.111806)
+texture = ExtResource("1_j1tpx")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -7)
+rotation = 3.17126
+shape = SubResource("CapsuleShape2D_0w0b4")
+
+[node name="BorderArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderArea"]
+position = Vector2(6, 0)
+shape = SubResource("RectangleShape2D_thjbg")
+
+[node name="RightCliffArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCliffArea"]
+position = Vector2(30, 18)
+shape = SubResource("RectangleShape2D_5ataj")
+
+[node name="LeftCliffArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCliffArea"]
+position = Vector2(-17, 18)
+shape = SubResource("RectangleShape2D_rf5s5")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BorderArea" to="." method="_on_border_area_body_entered"]
+[connection signal="body_exited" from="RightCliffArea" to="." method="_on_right_cliff_area_body_exited"]
+[connection signal="body_exited" from="LeftCliffArea" to="." method="_on_left_cliff_area_body_exited"]

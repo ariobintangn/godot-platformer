@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://b21xyjiixdcl5"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_6mfuf"]
+[ext_resource type="Texture2D" uid="uid://35ip5mtluo43" path="res://graphic/morena_bone.0001.png" id="2_m1sr4"]
+[ext_resource type="Shader" path="res://flicker.gdshader" id="2_mi3g1"]
+[ext_resource type="Texture2D" uid="uid://dsojpa0ucw7q3" path="res://graphic/morena_bone.0003.png" id="3_43moq"]
+[ext_resource type="Texture2D" uid="uid://drhalqcy1jut0" path="res://graphic/morena_bone.0006.png" id="4_arkx5"]
+[ext_resource type="Texture2D" uid="uid://cg8ku2y6nol22" path="res://graphic/morena_bone.0007.png" id="5_dwp2s"]
+[ext_resource type="Texture2D" uid="uid://bndmomq706710" path="res://graphic/morena_bone.0005.png" id="6_tcn4i"]
+[ext_resource type="Texture2D" uid="uid://bxb7fu3amm8ej" path="res://graphic/morena_bone.0009.png" id="7_mnwnx"]
+[ext_resource type="Texture2D" uid="uid://gs77tht8wxy" path="res://graphic/morena_bone.0004.png" id="8_oc0dg"]
+[ext_resource type="Texture2D" uid="uid://bxelshbw4w4y6" path="res://graphic/morena_bone.0008.png" id="9_hylaq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a33ju"]
+shader = ExtResource("2_mi3g1")
+shader_parameter/color = Color(0.979824, 0.589922, 0.598997, 1)
+shader_parameter/amount = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kp2vc"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m1sr4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_43moq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_arkx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dwp2s")
+}],
+"loop": true,
+"name": &"idle_bone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_tcn4i")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_mnwnx")
+}],
+"loop": true,
+"name": &"jump_bone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_43moq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_oc0dg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dwp2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hylaq")
+}],
+"loop": true,
+"name": &"walk_bone",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_6mfuf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(4, -2)
+rotation = 0.0279852
+scale = Vector2(0.06, 0.06)
+polygon = PackedVector2Array(-30, -142, -345, 4, -437, -82, -436, 49, -349, 168, -340.536, 342.996, 142.142, 312.812, 104, 21, 339, -17, 380, -213, 261, -363, 71, -320)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="VulnerabilityTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_a33ju")
+position = Vector2(6, 2)
+rotation = -0.00110329
+scale = Vector2(0.0523586, 0.0521355)
+sprite_frames = SubResource("SpriteFrames_kp2vc")
+animation = &"walk_bone"
+autoplay = "idle"
+
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/VulnerabilityTimer" to="." method="_on_vulnerability_timer_timeout"]

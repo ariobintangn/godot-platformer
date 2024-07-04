@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckfbs7kwqlhrh"]
+
+[ext_resource type="Texture2D" uid="uid://bn0ownf715rxd" path="res://graphic/cat.png" id="1_n0fb5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0w0b4"]
+radius = 17.0
+height = 34.0
+
+[node name="enemy" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4)
+shape = SubResource("CapsuleShape2D_0w0b4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9, -6)
+scale = Vector2(0.111806, 0.111806)
+texture = ExtResource("1_n0fb5")
