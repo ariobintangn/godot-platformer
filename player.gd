@@ -8,6 +8,7 @@ var can_shoot := true
 var armed := false
 var health := 100
 var vulnerable := true
+var bullet := 0
 
 signal shoot(pos: Vector2, direction: bool)
 
@@ -30,17 +31,20 @@ func get_input():
 	velocity.x = direction_x * speed
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		print('junping')
 		velocity.y = -400
 	
 	if Input.is_action_just_pressed("shoot") and can_shoot:
-		print("shoot!")
-		shoot.emit(global_position, facing_right)
-		can_shoot = false
-		$Timers/CooldownTimer.start()
+		if bullet >0:
+			print("shoot!")
+			bullet -= 1
+			shoot.emit(global_position, facing_right)
+			can_shoot = false
+			$Timers/CooldownTimer.start()
+		elif bullet <=0:
+			print("no bullet!")
 	
-	if Input.is_action_just_pressed("equip"):
-		armed = not armed
+	#if Input.is_action_just_pressed("equip"):
+		#armed = not armed
 	
 func apply_gravity():
 	velocity.y += 20
@@ -73,12 +77,10 @@ func get_damage(amount):
 	
 	
 func _on_cooldown_timer_timeout():
-	print('bisa lagi')
 	can_shoot = true # Replace with function body.
 
 
 func _on_vulnerability_timer_timeout():
-	print("vulnerable!")
 	vulnerable = true
 	
 func check_death():

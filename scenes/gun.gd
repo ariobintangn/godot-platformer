@@ -6,5 +6,6 @@ func _process(delta):
 
 func _on_body_entered(body):
 	body.armed = true
+	body.bullet += 5
 	queue_free()
 	

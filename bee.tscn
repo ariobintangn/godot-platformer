@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d33gc75ax6267" path="res://graphic/bee.0002.png" id="2_gtsyd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nyf3y"]
+resource_local_to_scene = true
 shader = ExtResource("2_f2mw8")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/amount = 0.0
@@ -40,6 +41,7 @@ scale = Vector2(0.04, 0.04)
 sprite_frames = SubResource("SpriteFrames_lsnwk")
 autoplay = "default"
 frame_progress = 0.378692
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)

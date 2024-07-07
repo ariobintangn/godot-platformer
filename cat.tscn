@@ -5,6 +5,7 @@
 [ext_resource type="Shader" path="res://flicker.gdshader" id="2_0lh2e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ed7d7"]
+resource_local_to_scene = true
 shader = ExtResource("2_0lh2e")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/amount = 0.0

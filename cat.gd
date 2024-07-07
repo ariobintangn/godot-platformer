@@ -6,7 +6,6 @@ var health := 3
 
 func _on_area_entered(_area):
 	health -= 1
-	print("obol got hit :(", health)
 	var tween = create_tween()
 	tween.tween_property($Sprite2D, "material:shader_parameter/amount", 1.0, 0.0)
 	tween.tween_property($Sprite2D, "material:shader_parameter/amount", 0.0, 0.2).set_delay(0.2)
@@ -28,7 +27,6 @@ func _on_body_entered(body):
 
 
 func _on_border_area_body_entered(_body):
-	print("kena deh")
 	direction_x *= -1 # Rep
 	
 	$Sprite2D.flip_h = not $Sprite2D.flip_h
@@ -36,14 +34,12 @@ func _on_border_area_body_entered(_body):
 
 
 func _on_right_cliff_area_body_exited(_body):
-	print("kena deh")
 	direction_x *= -1 # Rep
 	
 	$Sprite2D.flip_h = not $Sprite2D.flip_h # Replace with function body.
 
 
 func _on_left_cliff_area_body_exited(_body):
-	print("kena deh")
 	direction_x *= -1 # Rep
 	
 	$Sprite2D.flip_h = not $Sprite2D.flip_h
